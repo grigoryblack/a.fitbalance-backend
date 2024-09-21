@@ -2,11 +2,13 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
+import * as process from "process";
 
 dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 
   app.enableCors({
     origin: 'http://localhost:5173',
@@ -27,8 +29,8 @@ async function bootstrap() {
   const port = process.env.PORT || 8080;
   await app.listen(port);
 
-  console.log(`Server is running on http://localhost:${port}`);
-  console.log(`Swagger UI is available at http://localhost:${port}/api`);
+  console.log(`Server is running on ${clientOrigin.replace('localhost', '127.0.0.1')}:${port}`);
+  console.log(`Swagger UI is available at ${clientOrigin.replace('localhost', '127.0.0.1')}:${port}/api`);
 }
 
 bootstrap();
