@@ -11,7 +11,7 @@ async function bootstrap() {
   const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'https://a-fitbalance-front.onrender.com'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
